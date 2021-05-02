@@ -1,0 +1,41 @@
+<%- include('partials/header') %>
+
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <div class="list-group">
+
+                        <a href="#" class="list-group-item list-group-item-action">my profile</a>
+                        <a href="#" class="list-group-item list-group-item-action">saved tweets</a>
+                        <a href="#" class="list-group-item list-group-item-action">home page</a>
+                        <a href="#" class="list-group-item list-group-item-action ">messages</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <div class="main-area">
+                        <form action="/tweet" method="POST">
+                            <textarea class="form-control" name="tweet" id="" rows="5" placeholder="tweet here"
+                                style="resize:none;"></textarea>
+                            <button class="btn btn-outline-dark">tweet</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <div class="other-tweets">
+                        <!-- display tweets  -->
+                        <div class="list-group">
+                            <% allTweets.forEach((tweet)=> { %>
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    <%= tweet %>
+                                </a>
+                                <% }); %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+    </html>
