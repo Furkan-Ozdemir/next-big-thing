@@ -17,22 +17,19 @@ const userSchema = new mongoose.Schema({
             }
         }
     },
-    password: [{
+    password: {
         type: String,
         reqired: true,
         trim: true
-    }],
-    tweets: [{
-        type: String,
+    },
+    tweets: {
+        type: [String],
         trim: true
-    }],
-    tokens: [
-        {
-            token: {
-                type: String,
-                required: true
-            }
-        }]
+    },
+    tokens: {
+        type: [String],
+        required: true
+    }
 }, {
     timestamps: true
 })
@@ -40,10 +37,31 @@ const userSchema = new mongoose.Schema({
 userSchema.methods.generateAuthToken = async function () {
     const user = this
     const token = jwt.sign({ _id: user._id.toString() }, "harrypotterbetterthanlotr")
-    user.tokens.push({ token })
+    user.tokens.push(token)
     await user.save()
+    return token
+
 
 }
+
+// userSchema.methods.verifyToken(req, res, next)=> {
+
+//     const header = req.headers['authorization'];
+//     // Check if bearer is undefined
+//     if (typeof header !== 'undefined') {
+//         // Spliting the bearer
+//         const token = header;
+//         // Set the token
+//         req.token = token;
+//         // Next middleware
+//         next();
+
+//     } else {
+//         // Forbid the route
+//         res.sendStatus(403);
+//     }
+
+// }
 
 userSchema.methods.sendMail = async (email) => {
     const user = await User.findOne({ email })
